@@ -143,6 +143,8 @@ print("Total Torque : ", total_torque)
 # print(jacobian(matrix_koordates,matrix_variables).det())
 # problem 5 drone 2022
 # define varibles
+
+
 f1 = sp.Matrix([0,0,0]) # sæt nul for at teste uden thrust ved f1
 f2 = sp.Matrix([0,0,25])
 f3 = sp.Matrix([0,0,10])
@@ -158,24 +160,31 @@ angles = sp.Matrix([30,5,3])
 angle_velocities = sp.Matrix([0.1,0.5,0.1])
 
 arm = 0.4
-
+R, global_inertia, total_force, total_moment, acceleration, angular_acceleration = db.droneTask(angles,"xyz",list_of_forces,m*g,m,arm,angle_velocities,I)
 print("Problem 4:")
-R = db.rotation_matrix_extrinsic(angles, order='xyz')
 print("Rotation Matrix:\n", latex(R.evalf()))
-global_inertia = R @ I @ R.T
 print("Global Inertia Matrix:\n", latex(global_inertia.evalf()))
-
-gravity = g*m
-total_force = db.total_force_gobale(list_of_forces, gravity, R)
 print("Total Global Force:\n", latex(total_force.evalf()))
-
-total_moment = db.gobal_all_moment_drone(list_of_forces,R,arm)
-print("Total Global Moment:\n", latex(total_moment.evalf()))
-
-acceleration = total_force/m
+print("Total Global Moment:\n", latex(total_moment.evalf()))   
 print("Acceleration:\n", latex(acceleration.evalf()))
-angular_acceleration = global_inertia.evalf().inv() @(total_moment - angle_velocities.cross(global_inertia @ angle_velocities))
-print("Angular Acceleration:\n", latex(angular_acceleration.evalf()))    
+print("Angular Acceleration:\n", latex(angular_acceleration.evalf()))
+# print("Problem 4:")
+# R = db.rotation_matrix_extrinsic(angles, order='xyz')
+# print("Rotation Matrix:\n", latex(R.evalf()))
+# global_inertia = R @ I @ R.T
+# print("Global Inertia Matrix:\n", latex(global_inertia.evalf()))
+
+# gravity = g*m
+# total_force = db.total_force_gobale(list_of_forces, gravity, R)
+# print("Total Global Force:\n", latex(total_force.evalf()))
+
+# total_moment = db.gobal_all_moment_drone(list_of_forces,R,arm)
+# print("Total Global Moment:\n", latex(total_moment.evalf()))
+
+# acceleration = total_force/m
+# print("Acceleration:\n", latex(acceleration.evalf()))
+# angular_acceleration = global_inertia.evalf().inv() @(total_moment - angle_velocities.cross(global_inertia @ angle_velocities))
+   
 print("Done")   
 # golbal inertia matrix
 
@@ -225,4 +234,3 @@ print("Lagrangian :", latex(L.simplify()))
 print("Total force :",latex(Total_force.factor().nsimplify()))
 print("Total moment :", latex(Total_moment.factor().nsimplify()))
 ## factor().nsimplify()
-# problem 4 dynamik 2023

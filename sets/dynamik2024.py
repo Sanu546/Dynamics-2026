@@ -80,8 +80,10 @@ sc_1 = sp.Matrix([[ l1*sp.cos(theta1-sp.pi/2)],[ l1*sp.sin(theta1-sp.pi/2)],[0]]
 sc2 = sc_1+sp.Matrix([[l2*sp.cos(theta1+theta2-sp.pi/2)/2],[l2*sp.sin(theta1+theta2-sp.pi/2)/2],[0]])
 print("I2 ",I2*aa_list[1].subs(t,t_def).evalf())
 print("sc2 cross F_A ",(s_cn_list[1].cross(F_A)).subs(t,t_def).evalf())
+
+print("sc1 cross F_O ",s_cn_list[0])
 T_2 = I2*aa_list[1]+(s_cn_list[1].cross(F_A))[2]
-T_1 = I2*aa_list[0]+(s_cn_list[0].cross(F_O))[2]+(s_cn_list[1].cross(F_A))[2]+T_2
+T_1 = I1*aa_list[0]+(s_cn_list[0].cross(F_O))[2]-(s_cn_list[1].cross(-F_A))[2]+T_2
 
 print("Force at A:\n", latex(F_A.subs(t,t_def).evalf()))
 print("Force at O:\n", latex(F_O.subs(t,t_def).evalf()))
