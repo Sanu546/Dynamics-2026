@@ -154,8 +154,10 @@ I = sp.Matrix([[3,0,0],
                 [0,3,0],
                 [0,0,1]])
 # xyz rot
-angles = sp.Matrix([sp.rad(30),sp.rad(5),sp.rad(3)])
+angles = sp.Matrix([30,5,3])
 angle_velocities = sp.Matrix([0.1,0.5,0.1])
+
+arm = 0.4
 
 print("Problem 4:")
 R = db.rotation_matrix_extrinsic(angles, order='xyz')
@@ -167,7 +169,7 @@ gravity = g*m
 total_force = db.total_force_gobale(list_of_forces, gravity, R)
 print("Total Global Force:\n", latex(total_force.evalf()))
 
-total_moment = db.gobal_all_moment_drone(list_of_forces,R,0.4)
+total_moment = db.gobal_all_moment_drone(list_of_forces,R,arm)
 print("Total Global Moment:\n", latex(total_moment.evalf()))
 
 acceleration = total_force/m
@@ -220,6 +222,7 @@ print("T2 :", latex(T2.nsimplify()))
 print("V_E1 :", latex(V_E1.simplify()))
 print("V_E2 :", latex(V_E2.simplify()))
 print("Lagrangian :", latex(L.simplify()))
-print("Total force :", latex(Total_force.simplify()))
-print("Total moment :", latex(Total_moment.simplify()))
+print("Total force :",latex(Total_force.factor().nsimplify()))
+print("Total moment :", latex(Total_moment.factor().nsimplify()))
 ## factor().nsimplify()
+# problem 4 dynamik 2023
